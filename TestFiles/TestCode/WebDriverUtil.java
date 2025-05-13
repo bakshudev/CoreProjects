@@ -142,4 +142,20 @@ public class WebDriverUtil {
 		Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
 		BrowserWaitUtil.waitForMilliSeconds(1000);
 	}
+
+	public static String getWindowHandleByTitle(WebDriver driver, String titleKeyWord){
+		String requiredWinHandle = "";
+		
+		Set<String> windowHandles = driver.getWindowHandles();
+		
+		for(String windowHandle : windowHandles){
+			driver.switchTo().window(windowHandle);
+			if(driver.getTitle().contains(titleKeyWord)){
+				requiredWinHandle =  windowHandle;
+				break;
+			}
+		}
+
+		return requiredWinHandle;
+	}
 }
